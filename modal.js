@@ -1,9 +1,24 @@
-console.log("here");
+const openModalButton = document.getElementById("openModal")
+const modal = document.getElementById("modal")
 
-// select button element
+// Timeout to close modal if user doesn't press any keys
+let closeModalTimeout
 
-// add event listener on click to button
-// remove class invisible from div modal
+// Add click event listener to the button
+openModalButton.addEventListener("click", () => {
+  modal.classList.remove("invisible")
 
-// add event listener on key press Escape
-// add class invisible to div modal
+  // Close modal after 5 seconds if no key is pressed
+  clearTimeout(closeModalTimeout)
+  closeModalTimeout = setTimeout(() => {
+    modal.classList.add("invisible")
+  }, 5000)
+})
+
+// Add keyup event listener for esc
+document.addEventListener("keyup", (event) => {
+  if (event.key === "Escape") {
+    modal.classList.add("invisible")
+    clearTimeout(closeModalTimeout) // cancel timeout
+  }
+})
